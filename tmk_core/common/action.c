@@ -776,11 +776,18 @@ void process_action(keyrecord_t *record, action_t action) {
 #endif
 }
 
+// Forward declaration of user-defined hid helpers
+extern void hid_register_code(uint8_t keycode);
+extern void hid_unregister_code(uint8_t keycode);
+
 /** \brief Utilities for actions. (FIXME: Needs better description)
  *
  * FIXME: Needs documentation.
  */
 void register_code(uint8_t code) {
+    if(code != KC_NO) {
+        hid_register_code(code);
+    }
     if (code == KC_NO) {
         return;
     }
@@ -877,6 +884,9 @@ void register_code(uint8_t code) {
  * FIXME: Needs documentation.
  */
 void unregister_code(uint8_t code) {
+    if(code != KC_NO) {
+        hid_unregister_code(code);
+    }
     if (code == KC_NO) {
         return;
     }
